@@ -3,15 +3,16 @@
 ---
 
 ## About the App:
-**Library App** is a user-friendly digital platform for book lovers. It's designed to help users discover new books and keep track of their reading. On this app, users can create lists of books they want to read or have already read, and share these lists with friends or the public. This sharing feature makes it easy to find book recommendations and see what others are reading.
+**Library App** is a user-friendly digital platform for book lovers. It's designed to help users discover new books, keep track of their reading, and share their literary journeys. Users can create lists of books they want to read or have already read, and share these lists with friends or the public. This feature makes it easy to find book recommendations and see what others are reading.
 
-Users can also write reviews for the books they've read, giving their opinions and helping others decide what to read next. These reviews can be for a single book or for the entire list of books. This way, the app not only helps in organizing your reading habits but also builds a community of readers who share their experiences and recommendations.
+Users can also write reviews for the books they've read, providing insights and helping others decide what to read next. These reviews can be for individual books or for an entire list, fostering a community of readers who share their experiences and recommendations.
 
-The Library App has two main types of users:
-- **Customers**: These are regular users who can make lists of books, write reviews, and share their lists with others.
-- **Administrators**: These are the users who manage the app. They can add new books to the library, delete books, change user roles, and remove any reviews that are inappropriate or don't follow the app's guidelines.
+The Library App caters to three main types of users:
+- **Customers**: These users can make lists of books, write reviews, and share their lists with others.
+- **Authors**: Authors can publish their books on the app, interact with readers, receive feedback, and build a following for their work.
+- **Administrators**: These users manage the app, add new books to the library, delete books, change user roles, and remove any reviews that are inappropriate or don't adhere to the app's guidelines.
 
-Security and ease of use are top priorities for the Library App, which is why it uses JWT authentication to make sure only registered users can sign in and use the app. It's perfect for anyone who loves reading and wants to connect with a community that shares their passion for books.
+With a focus on security and ease of use, the Library App uses JWT authentication to ensure that only registered users can sign in and use its features. It's ideal for anyone passionate about reading and looking to connect with a community that shares their love for books.
 
 ---
 
