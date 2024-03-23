@@ -11,7 +11,7 @@ const allCollections = async (req, res) => {
 
 const userCollections = async (req, res) => {
     try {
-        let userCollRes = await Collection.find({_id: res.params.id})
+        let userCollRes = await Collection.find({_id: req.params.id})
         res.json(userCollRes)
     } catch (error) {
         res.json({error: error.message})
