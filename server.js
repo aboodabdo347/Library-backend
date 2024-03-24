@@ -9,7 +9,8 @@ require('./config/database')
 var indexRouter = require('./routes/index')
 var usersRouter = require('./routes/users')
 const authorRouter = require('./routes/authors')
-
+const bookRouter =require("./routes/books")
+const AuthRouter= require("./routes/Auth")
 var app = express()
 
 // view engine setup
@@ -26,6 +27,8 @@ app.use(cors())
 app.use('/', indexRouter)
 app.use('/users', usersRouter)
 app.use('/authors', authorRouter)
+app.use("/books", bookRouter)
+app.use('/auth', AuthRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
