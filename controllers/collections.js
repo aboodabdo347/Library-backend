@@ -1,4 +1,4 @@
-const Collection = require("../models/Collection");
+const Collection = require("../models/collection");
 
 const allCollections = async (req, res) => {
     try {

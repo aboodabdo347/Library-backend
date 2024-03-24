@@ -1,4 +1,4 @@
-const axios = require("axios")
+const axios = require('axios')
 
 const getBooks = async () => {
     const bookRes = await axios.get("https://www.googleapis.com/books/v1/volumes?q=atomic+habits&langRestrict=en")
@@ -11,4 +11,4 @@ const getBooks = async () => {
     //     }
     // }
 }
-getBooks();
+getBooks()
