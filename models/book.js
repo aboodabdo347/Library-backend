@@ -8,7 +8,7 @@ const bookSchema = new Schema({
   isbn: String,
   authors: Array,
   description: String,
-  pubYear: Number
+  pubYear: String
 });
 
 const Book = mongoose.model('Book', bookSchema);
