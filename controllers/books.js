@@ -2,7 +2,7 @@ const Book = require('../models/book')
 
 const getBooks = async (req, res) => {
   try {
-    const books = await Book.find({}).populate('authors')
+    const books = await Book.find({})
     res.send(books)
   } catch (error) {
     console.log(error)
@@ -10,7 +10,7 @@ const getBooks = async (req, res) => {
 }
 const getBook  = async (req, res) => {
   try {
-    const book = await Book.findById(req.params.id).populate('authors')
+    const book = await Book.findById(req.params.id)
     res.send(book)
   } catch (error) {
     console.log(error)
