@@ -1,40 +1,47 @@
 const Book = require('../models/book')
-const axios  = require("axios")
+const axios = require('axios')
 
 const searchBooksApi = async (req, res) => {
-    let term = req.body.term;
-    let resultsArray = [];
-    // console.log(term)
-    let searchRes = await axios.get(`https://www.googleapis.com/books/v1/volumes?q='${term}'&langRestrict=en&maxResults=40`)
-    // res.json(searchRes.data);
-    // console.log(searchRes.data.items.length)
-    // console.log(searchRes.data.items[0].volumeInfo.imageLinks.thumbnail)
-    try {
-        for(let i = 0; i < searchRes.data.items.length; i++) {
-            if (
-                (searchRes.data.items[i].volumeInfo.title) &&
-                ('imageLinks' in searchRes.data.items[i].volumeInfo) &&
-                (searchRes.data.items[i].volumeInfo.description) &&
-                (searchRes.data.items[i].volumeInfo.publishedDate) &&
-                (searchRes.data.items[i].volumeInfo.authors) &&
-                (searchRes.data.items[i].volumeInfo.language === "en") &&
-                ('industryIdentifiers' in searchRes.data.items[i].volumeInfo && (searchRes.data.items[i].volumeInfo.industryIdentifiers[0].type == "ISBN_10" || searchRes.data.items[i].volumeInfo.industryIdentifiers[0].type == "ISBN_13"))
-            ) {
-                resultsArray.push({
-                    title: searchRes.data.items[i].volumeInfo.title,
-                    image: searchRes.data.items[i].volumeInfo.imageLinks.thumbnail,
-                    description: searchRes.data.items[i].volumeInfo.description,
-                    pubYear: searchRes.data.items[i].volumeInfo.publishedDate,
-                    authors: searchRes.data.items[i].volumeInfo.authors,
-                    isbn: searchRes.data.items[i].volumeInfo.industryIdentifiers[0].identifier
-                })
-            }
-        }
-    } catch (error) {
-        res.json({error: error.message})
+  let term = req.body.term
+  let resultsArray = []
+  // console.log(term)
+  let searchRes = await axios.get(
+    `https://www.googleapis.com/books/v1/volumes?q='${term}'&langRestrict=en&maxResults=40`
+  )
+  // res.json(searchRes.data);
+  // console.log(searchRes.data.items.length)
+  // console.log(searchRes.data.items[0].volumeInfo.imageLinks.thumbnail)
+  try {
+    for (let i = 0; i < searchRes.data.items.length; i++) {
+      if (
+        searchRes.data.items[i].volumeInfo.title &&
+        'imageLinks' in searchRes.data.items[i].volumeInfo &&
+        searchRes.data.items[i].volumeInfo.description &&
+        searchRes.data.items[i].volumeInfo.publishedDate &&
+        searchRes.data.items[i].volumeInfo.authors &&
+        searchRes.data.items[i].volumeInfo.language === 'en' &&
+        'industryIdentifiers' in searchRes.data.items[i].volumeInfo &&
+        (searchRes.data.items[i].volumeInfo.industryIdentifiers[0].type ==
+          'ISBN_10' ||
+          searchRes.data.items[i].volumeInfo.industryIdentifiers[0].type ==
+            'ISBN_13')
+      ) {
+        resultsArray.push({
+          title: searchRes.data.items[i].volumeInfo.title,
+          image: searchRes.data.items[i].volumeInfo.imageLinks.thumbnail,
+          description: searchRes.data.items[i].volumeInfo.description,
+          pubYear: searchRes.data.items[i].volumeInfo.publishedDate,
+          authors: searchRes.data.items[i].volumeInfo.authors,
+          isbn: searchRes.data.items[i].volumeInfo.industryIdentifiers[0]
+            .identifier
+        })
+      }
     }
-    
-    res.json(resultsArray);
+  } catch (error) {
+    res.json({ error: error.message })
+  }
+
+  res.json(resultsArray)
 }
 
 const getBooks = async (req, res) => {
@@ -46,7 +53,7 @@ const getBooks = async (req, res) => {
   }
 }
 
-const getBook  = async (req, res) => {
+const getBook = async (req, res) => {
   try {
     const book = await Book.findById(req.params.id)
     res.send(book)
