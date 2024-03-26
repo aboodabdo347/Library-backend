@@ -8,7 +8,7 @@
 Users can also write reviews for the books they've read, providing insights and helping others decide what to read next. These reviews can be for individual books or for an entire list, fostering a community of readers who share their experiences and recommendations.
 
 The Library App caters to three main types of users:
-- **Customers**: These users can make lists of books, write reviews, and share their lists with others.
+- **Readers**: These users can make lists of books, write reviews, and share their lists with others.
 - **Authors**: Authors can publish their books on the app, interact with readers, receive feedback, and build a following for their work.
 - **Administrators**: These users manage the app, add new books to the library, delete books, change user roles, and remove any reviews that are inappropriate or don't adhere to the app's guidelines.
 
