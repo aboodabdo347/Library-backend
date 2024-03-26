@@ -7,6 +7,7 @@ const addToCollection = async (req, res) => {
     let findBookInDb = await Book.findOne({isbn: bookISBN})
     let findCollection = await Collection.findOne({_id: req.body.collectionId})
     console.log(findCollection)
+    console.log(findBookInDb)
     if(findBookInDb) {
         findCollection.books.push(findBookInDb._id)
         findCollection.save();
@@ -26,7 +27,7 @@ const addToCollection = async (req, res) => {
           (bookRes.data.items[0].volumeInfo.language === "en") &&
           ('industryIdentifiers' in bookRes.data.items[0].volumeInfo && (bookRes.data.items[0].volumeInfo.industryIdentifiers[0].type == "ISBN_10" || bookRes.data.items[0].volumeInfo.industryIdentifiers[0].type == "ISBN_13"))
       ) {
-          Book.create({
+         let newBook = await Book.create({
               title: bookRes.data.items[0].volumeInfo.title,
               image: bookRes.data.items[0].volumeInfo.imageLinks.thumbnail,
               description: bookRes.data.items[0].volumeInfo.description,
@@ -34,7 +35,7 @@ const addToCollection = async (req, res) => {
               authors: bookRes.data.items[0].volumeInfo.authors,
               isbn: bookRes.data.items[0].volumeInfo.industryIdentifiers[0].identifier
             })
-            findCollection.books.push(findBookInDb._id)
+            findCollection.books.push(newBook._id)
             findCollection.save();
             // console.log("else")
             // console.log(findCollection)
