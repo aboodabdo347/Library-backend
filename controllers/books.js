@@ -8,8 +8,9 @@ const getBooks = async (req, res) => {
     console.log(error)
   }
 }
-const getBook  = async (req, res) => {
+const getBook = async (req, res) => {
   try {
+    console.log('Book ID:', req.params.id);
     const book = await Book.findById(req.params.id).populate('authors')
     res.send(book)
   } catch (error) {
