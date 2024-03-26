@@ -11,14 +11,14 @@ const searchBooksApi = async (req, res) => {
     // console.log(searchRes.data.items[0].volumeInfo.imageLinks.thumbnail)
     try {
         for(let i = 0; i < searchRes.data.items.length; i++) {
-            if(
+            if (
                 (searchRes.data.items[i].volumeInfo.title) &&
                 ('imageLinks' in searchRes.data.items[i].volumeInfo) &&
                 (searchRes.data.items[i].volumeInfo.description) &&
                 (searchRes.data.items[i].volumeInfo.publishedDate) &&
                 (searchRes.data.items[i].volumeInfo.authors) &&
                 (searchRes.data.items[i].volumeInfo.language === "en") &&
-                ('industryIdentifiers' in searchRes.data.items[i].volumeInfo)
+                ('industryIdentifiers' in searchRes.data.items[i].volumeInfo && (searchRes.data.items[i].volumeInfo.industryIdentifiers[0].type == "ISBN_10" || searchRes.data.items[i].volumeInfo.industryIdentifiers[0].type == "ISBN_13"))
             ) {
                 resultsArray.push({
                     title: searchRes.data.items[i].volumeInfo.title,
