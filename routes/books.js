@@ -5,14 +5,20 @@ const middleware = require('../middleware')
 const bookCtrl = require('../controllers/books')
 router.get('/', bookCtrl.getBooks)
 router.get('/:id', bookCtrl.getBook)
-
-router.post("/search", bookCtrl.searchBooksApi)
 router.post(
   '/add',
   middleware.stripToken,
   middleware.verifyToken,
   bookCtrl.createBook
 )
+router.post('/search', bookCtrl.searchBooksApi)
+router.post(
+  '/add',
+  middleware.stripToken,
+  middleware.verifyToken,
+  bookCtrl.createBook
+)
+
 router.delete(
   '/:id',
   middleware.stripToken,

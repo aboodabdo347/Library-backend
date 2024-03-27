@@ -8,6 +8,7 @@ const userSchema = new Schema(
     role: { type: String, required: true },
     avatar:{type:String},
     collections: [{ type: Schema.Types.ObjectId, ref: "Collection" }],
+    books:[{ type: Schema.Types.ObjectId, ref: "Book" }],
   },
   {
     timestamps: true,
