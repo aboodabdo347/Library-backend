@@ -57,7 +57,7 @@ const allCollections = async (req, res) => {
 
 const userCollections = async (req, res) => {
     try {
-        let userCollRes = await Collection.find({user: req.params.id})
+        let userCollRes = await Collection.find({user: req.params.id}).populate('books')
         res.json(userCollRes)
     } catch (error) {
         res.json({error: error.message})
