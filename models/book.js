@@ -6,9 +6,9 @@ const bookSchema = new Schema({
   title: String,
   image: String,
   isbn: String,
-  authors: [{ type: Schema.Types.ObjectId, ref: 'Author' }],
+  authors: Array,
   description: String,
-  pubYear: Number
+  pubYear: String
 });
 
 const Book = mongoose.model('Book', bookSchema);
