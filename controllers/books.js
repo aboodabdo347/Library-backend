@@ -1,6 +1,6 @@
-const Book = require('../models/Book')
-const axios = require('axios')
-const User = require('../models/User')
+const Book = require("../models/Book")
+const axios = require("axios")
+const User = require("../models/User")
 
 const searchBooksApi = async (req, res) => {
   let term = req.body.term
@@ -16,16 +16,16 @@ const searchBooksApi = async (req, res) => {
     for (let i = 0; i < searchRes.data.items.length; i++) {
       if (
         searchRes.data.items[i].volumeInfo.title &&
-        'imageLinks' in searchRes.data.items[i].volumeInfo &&
+        "imageLinks" in searchRes.data.items[i].volumeInfo &&
         searchRes.data.items[i].volumeInfo.description &&
         searchRes.data.items[i].volumeInfo.publishedDate &&
         searchRes.data.items[i].volumeInfo.authors &&
-        searchRes.data.items[i].volumeInfo.language === 'en' &&
-        'industryIdentifiers' in searchRes.data.items[i].volumeInfo &&
+        searchRes.data.items[i].volumeInfo.language === "en" &&
+        "industryIdentifiers" in searchRes.data.items[i].volumeInfo &&
         (searchRes.data.items[i].volumeInfo.industryIdentifiers[0].type ==
-          'ISBN_10' ||
+          "ISBN_10" ||
           searchRes.data.items[i].volumeInfo.industryIdentifiers[0].type ==
-            'ISBN_13')
+            "ISBN_13")
       ) {
         resultsArray.push({
           title: searchRes.data.items[i].volumeInfo.title,
@@ -34,7 +34,7 @@ const searchBooksApi = async (req, res) => {
           pubYear: searchRes.data.items[i].volumeInfo.publishedDate,
           authors: searchRes.data.items[i].volumeInfo.authors,
           isbn: searchRes.data.items[i].volumeInfo.industryIdentifiers[0]
-            .identifier
+            .identifier,
         })
       }
     }
@@ -75,7 +75,7 @@ const getBook = async (req, res) => {
 const deleteBook = async (req, res) => {
   try {
     await Book.deleteOne({ _id: req.params.id })
-    res.send({ msg: 'Post Deleted', status: 'Ok' })
+    res.send({ msg: "Post Deleted", status: "Ok" })
   } catch (error) {
     console.log(error)
   }
@@ -99,7 +99,7 @@ const createBook = async (req, res) => {
       isbn,
       authors,
       description,
-      pubYear
+      pubYear,
     })
 
     const savedBook = await newBook.save()
@@ -113,14 +113,21 @@ const createBook = async (req, res) => {
     res.status(201).json(savedBook)
   } catch (error) {
     console.error(error)
-    res.status(500).json({ message: 'Error creating book', error })
+    res.status(500).json({ message: "Error creating book", error })
   }
 }
+
+const getLatest = async (req, res) => {
+  let latestRes = await Book.find({}).sort({ _id: -1 }).limit(10)
+  res.json(latestRes)
+}
+
 module.exports = {
   getBooks,
   getBook,
   createBook,
   deleteBook,
   updateBook,
-  searchBooksApi
+  searchBooksApi,
+  getLatest,
 }

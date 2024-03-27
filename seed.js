@@ -4,12 +4,13 @@ const axios = require("axios")
 const Book = require("./models/Book.js")
 
 const getBooks = async () => {
-  const bookRes = await axios.get(
-    "https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=en&maxResults=40"
-  )
-  console.log(bookRes.data.items.length)
-  console.log(bookRes.data.items[0].volumeInfo.imageLinks)
-
+  //   let bookRes = await Book.find({}).sort({ _id: -1 }).limit(3)
+  //   console.log(bookRes)
+  //   const bookRes = await axios.get(
+  //     "https://www.googleapis.com/books/v1/volumes?q=subject:fiction&langRestrict=en&maxResults=40"
+  //   )
+  //   console.log(bookRes.data.items.length)
+  //   console.log(bookRes.data.items[0].volumeInfo.imageLinks)
   // for(let i = 0; i < bookRes.data.items.length; i++) {
   //     if(
   //         (bookRes.data.items[i].volumeInfo.title) &&
@@ -31,4 +32,4 @@ const getBooks = async () => {
   //     }
   // }
 }
-// getBooks()
+getBooks()

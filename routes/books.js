@@ -1,32 +1,33 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const middleware = require('../middleware')
+const middleware = require("../middleware")
 
-const bookCtrl = require('../controllers/books')
-router.get('/', bookCtrl.getBooks)
-router.get('/:id', bookCtrl.getBook)
+const bookCtrl = require("../controllers/books")
+router.get("/", bookCtrl.getBooks)
+router.get("/latest", bookCtrl.getLatest)
+router.get("/:id", bookCtrl.getBook)
 router.post(
-  '/add',
+  "/add",
   middleware.stripToken,
   middleware.verifyToken,
   bookCtrl.createBook
 )
-router.post('/search', bookCtrl.searchBooksApi)
+router.post("/search", bookCtrl.searchBooksApi)
 router.post(
-  '/add',
+  "/add",
   middleware.stripToken,
   middleware.verifyToken,
   bookCtrl.createBook
 )
 
 router.delete(
-  '/:id',
+  "/:id",
   middleware.stripToken,
   middleware.verifyToken,
   bookCtrl.deleteBook
 )
 router.put(
-  '/:id',
+  "/:id",
   middleware.stripToken,
   middleware.verifyToken,
   bookCtrl.updateBook
