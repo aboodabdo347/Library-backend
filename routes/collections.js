@@ -12,4 +12,7 @@ router.post('/:collectionId/books/:bookId', collectionCTRL.addBookToCollection)
 
 router.post('/', collectionCTRL.createCollection)
 
+router.put("/:isbn", collectionCTRL.addToCollection)
+
 module.exports = router
+
