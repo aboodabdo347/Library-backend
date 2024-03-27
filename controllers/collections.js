@@ -1,6 +1,6 @@
-const Collection = require("../models/Collection")
-const Book = require("../models/Book")
-const axios = require("axios")
+const Collection = require('../models/Collection')
+const Book = require('../models/Book')
+const axios = require('axios')
 
 const addToCollection = async (req, res) => {
   let bookISBN = req.params.isbn
@@ -20,16 +20,16 @@ const addToCollection = async (req, res) => {
     if (
       !bookRes.totalItems == 1 &&
       bookRes.data.items[0].volumeInfo.title &&
-      "imageLinks" in bookRes.data.items[0].volumeInfo &&
+      'imageLinks' in bookRes.data.items[0].volumeInfo &&
       bookRes.data.items[0].volumeInfo.description &&
       bookRes.data.items[0].volumeInfo.publishedDate &&
       bookRes.data.items[0].volumeInfo.authors &&
-      bookRes.data.items[0].volumeInfo.language === "en" &&
-      "industryIdentifiers" in bookRes.data.items[0].volumeInfo &&
+      bookRes.data.items[0].volumeInfo.language === 'en' &&
+      'industryIdentifiers' in bookRes.data.items[0].volumeInfo &&
       (bookRes.data.items[0].volumeInfo.industryIdentifiers[0].type ==
-        "ISBN_10" ||
+        'ISBN_10' ||
         bookRes.data.items[0].volumeInfo.industryIdentifiers[0].type ==
-          "ISBN_13")
+          'ISBN_13')
     ) {
       let newBook = await Book.create({
         title: bookRes.data.items[0].volumeInfo.title,
@@ -37,22 +37,21 @@ const addToCollection = async (req, res) => {
         description: bookRes.data.items[0].volumeInfo.description,
         pubYear: bookRes.data.items[0].volumeInfo.publishedDate,
         authors: bookRes.data.items[0].volumeInfo.authors,
-        isbn: bookRes.data.items[0].volumeInfo.industryIdentifiers[0]
-          .identifier,
+        isbn: bookRes.data.items[0].volumeInfo.industryIdentifiers[0].identifier
       })
       findCollection.books.push(newBook._id)
       findCollection.save()
       // console.log("else")
       // console.log(findCollection)
     } else {
-      console.log("book not found")
+      console.log('book not found')
     }
   }
 }
 
 const allCollections = async (req, res) => {
   try {
-    let allRes = await Collection.find().populate("books")
+    let allRes = await Collection.find().populate('books')
     res.json(allRes)
   } catch (error) {
     res.json({ error: error.message })
@@ -60,9 +59,12 @@ const allCollections = async (req, res) => {
 }
 
 const userCollections = async (req, res) => {
+  let check = false
   let allRes = await Collection.find()
-  console.log(allRes)
-  if (!req.body._id) {
+  for (let i = 0; i < allRes.length; i++) {
+    if (allRes[i]._id == req.params.id) check = true
+  }
+  if (check == false) {
     try {
       let userCollRes = await Collection.find({ user: req.params.id }).populate(
         'books'
@@ -94,17 +96,18 @@ const createCollection = async (req, res) => {
 }
 const removeBookFromCollection = async (req, res) => {
   const { collectionId, bookId } = req.params
+  console.log(collectionId + '\n' + bookId)
 
   try {
     const collection = await Collection.findById(collectionId)
 
     if (!collection) {
-      return res.status(404).send({ message: "Collection not found" })
+      return res.status(404).send({ message: 'Collection not found' })
     }
     collection.books = collection.books.filter((id) => id.toString() !== bookId)
     await collection.save()
 
-    res.send({ message: "Book removed from collection", collection })
+    res.send({ message: 'Book removed from collection', collection })
   } catch (error) {
     console.log(error)
   }
@@ -121,10 +124,25 @@ const addBookToCollection = async (req, res) => {
       await collection.save()
       return res.status(200).json(collection)
     } else {
-      return res.status(400).json({ message: "Book already in the collection" })
+      return res.status(400).json({ message: 'Book already in the collection' })
     }
   } catch (error) {
     console.log(error)
+  }
+}
+const deleteCollection = async (req, res) => {
+  try {
+    const { collectionId } = req.params
+    const collection = await Collection.findById(collectionId)
+    if (!collection) {
+      return res.status(404).json({ message: 'Collection not found' })
+    }
+    await Collection.findByIdAndDelete(collectionId)
+
+    res.status(200).json({ message: 'Collection deleted successfully' })
+  } catch (error) {
+    console.error('Delete Collection Error:', error)
+    res.status(500).json({ message: 'Server error' })
   }
 }
 module.exports = {
@@ -134,4 +152,5 @@ module.exports = {
   addToCollection,
   removeBookFromCollection,
   addBookToCollection,
+  deleteCollection
 }
