@@ -1,5 +1,5 @@
-const Collection = require('../models/collection')
-const Book = require('../models/book')
+const Collection = require('../models/Collection')
+const Book = require('../models/Book')
 const axios = require('axios')
 
 const addToCollection = async (req, res) => {
