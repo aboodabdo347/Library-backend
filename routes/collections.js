@@ -10,4 +10,8 @@ router.post("/", collectionCTRL.createCollection)
 
 router.put("/:isbn", collectionCTRL.addToCollection)
 
+router.delete("/:id" , collectionCTRL.deleteCollection)
+
+router.get("/c/:id" , collectionCTRL.getAcollection)
+
 module.exports = router
