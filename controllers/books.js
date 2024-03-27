@@ -1,5 +1,6 @@
 const Book = require('../models/book')
 const axios = require('axios')
+const User = require('../models/User')
 
 const searchBooksApi = async (req, res) => {
   let term = req.body.term
@@ -54,6 +55,7 @@ const getBooks = async (req, res) => {
 }
 
 const getBook = async (req, res) => {
+  console.log(req.params.id)
   try {
     const book = await Book.findById(req.params.id)
     res.send(book)
@@ -61,14 +63,14 @@ const getBook = async (req, res) => {
     console.log(error)
   }
 }
-const createBook = async (req, res) => {
-  try {
-    const book = await Book.create(req.body)
-    res.send(book)
-  } catch (error) {
-    console.log(error)
-  }
-}
+// const createBook = async (req, res) => {
+//   try {
+//     const book = await Book.create(req.body)
+//     res.send(book)
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
 
 const deleteBook = async (req, res) => {
   try {
@@ -87,7 +89,33 @@ const updateBook = async (req, res) => {
     console.log(error)
   }
 }
+const createBook = async (req, res) => {
+  const { title, image, isbn, authors, description, pubYear } = req.body
+  console.log(authors)
+  try {
+    const newBook = new Book({
+      title,
+      image,
+      isbn,
+      authors,
+      description,
+      pubYear
+    })
 
+    const savedBook = await newBook.save()
+    for (let i = 0; i < authors.length - 1; i++) {
+      await User.updateOne(
+        { _id: authors[i] },
+        { $addToSet: { books: savedBook._id } }
+      )
+    }
+
+    res.status(201).json(savedBook)
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: 'Error creating book', error })
+  }
+}
 module.exports = {
   getBooks,
   getBook,
