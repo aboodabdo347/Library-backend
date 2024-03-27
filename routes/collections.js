@@ -8,6 +8,7 @@ router.delete(
   '/:collectionId/books/:bookId',
   collectionCTRL.removeBookFromCollection
 )
+router.delete("/:collectionId",collectionCTRL.deleteCollection)
 router.post('/:collectionId/books/:bookId', collectionCTRL.addBookToCollection)
 
 router.post('/', collectionCTRL.createCollection)
