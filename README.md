@@ -26,6 +26,7 @@ The Library App was developed collaboratively by the following team members:
 ## Links
 Discover the app and follow our progress:
 - [Trello Board](https://trello.com/b/sXuuAAaW/library)
+- [App Link](https://library-collection.surge.sh)
 
 ---
 
@@ -37,14 +38,19 @@ Discover the app and follow our progress:
 ### **The Login Page:**
 ![Screenshot-89](https://i.ibb.co/4WYXNK3/Screenshot-89.png)
 
+### **Discover Books Page:**
 ![Screenshot-90](https://i.ibb.co/1YcJpCv/Screenshot-90.png)
 
+### **Book Details Page:**
 ![Screenshot-91](https://i.ibb.co/sHfQHJF/Screenshot-91.png)
 
+### **Discover Collections Page:**
 ![Screenshot-92](https://i.ibb.co/VBz6fLJ/Screenshot-92.png)
 
+### **Collection Details Page:**
 ![Screenshot-93](https://i.ibb.co/s149BC2/Screenshot-93.png)
 
+### **Add Book Page:**
 ![Screenshot-94](https://i.ibb.co/FHK0r8w/Screenshot-94.png)
 ---
 
